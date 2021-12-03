@@ -12,6 +12,7 @@ class Instruction:
 class Coordinates:
     horizontal: int = 0
     depth: int = 0
+    aim: int = 0
 
 
 def get_input() -> List[Instruction]:
@@ -36,6 +37,19 @@ def adjust_coordinates(
     return coordinates
 
 
+def adjust_coordinates_and_aim(
+    instruction: Instruction, coordinates: Coordinates
+) -> Coordinates:
+    if instruction.direction == "forward":
+        coordinates.horizontal += instruction.amount
+        coordinates.depth += (coordinates.aim * instruction.amount)
+    if instruction.direction == "up":
+        coordinates.aim -= instruction.amount
+    if instruction.direction == "down":
+        coordinates.aim += instruction.amount
+    return coordinates
+
+
 def step_one(instructions: List[Instruction]) -> int:
     coordinates = Coordinates()
     for instruction in instructions:
@@ -43,6 +57,15 @@ def step_one(instructions: List[Instruction]) -> int:
     return coordinates.horizontal * coordinates.depth
 
 
+def step_two(instructions: List[Instruction]) -> int:
+    coordinates = Coordinates()
+    for instruction in instructions:
+        coordinates = adjust_coordinates_and_aim(instruction, coordinates)
+        print(coordinates)
+    return coordinates.horizontal * coordinates.depth
+
+
 if __name__ == "__main__":
     input = get_input()
     print(step_one(input))
+    print(step_two(input))
