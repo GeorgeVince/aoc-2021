@@ -61,7 +61,6 @@ def step_two(instructions: List[Instruction]) -> int:
     coordinates = Coordinates()
     for instruction in instructions:
         coordinates = adjust_coordinates_and_aim(instruction, coordinates)
-        print(coordinates)
     return coordinates.horizontal * coordinates.depth
 
 
