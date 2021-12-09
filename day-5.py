@@ -30,6 +30,16 @@ class Board:
             for y in range(min(line.y1, line.y2), max(line.y1, line.y2) + 1):
                 self.called_coordinates.append(Coordinate(x, y))
 
+    def log_diagonal(self, line: Line):
+        x = line.x1
+        y = line.y1
+        self.called_coordinates.append(Coordinate(x, y))
+        while x != line.x2 and y != line.y2:
+            x += 1 if x <= line.x2 else - 1
+            y += 1 if y <= line.y2 else - 1           
+            self.called_coordinates.append(Coordinate(x, y))
+
+
     def number_overlapping_lines(self):
         counter = Counter(self.called_coordinates)
         return len([k for k, v in counter.items() if v > 1])
@@ -55,6 +65,18 @@ def part_one(lines: List[Line]):
     return board.number_overlapping_lines()
 
 
+def part_two(lines: List[Line]):
+    board = Board()
+    for line in lines:
+        if line.is_horizontal_or_vertical:
+            board.log_line_coordinates(line)
+        else:
+            board.log_diagonal(line)
+
+    return board.number_overlapping_lines()
+
+
 if __name__ == "__main__":
     input = get_input()
     print(part_one(input))
+    print(part_two(input))
