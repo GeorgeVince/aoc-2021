@@ -20,8 +20,7 @@ def get_input() -> int:
         contents = f.read()
     return [int(x) for x in contents.split(",")]
 
-
-def part_one(inital_ages: List[int]) -> int:
+def simulate(inital_ages: List[int], num_days: int) -> int
     fishes = []
     num_days = 80
 
@@ -35,8 +34,11 @@ def part_one(inital_ages: List[int]) -> int:
             if new_fish:
                 new_fishes.append(new_fish)
         fishes.extend(new_fishes)
-
     return len(fishes)
+
+def part_one(inital_ages: List[int]) -> int:
+    return simulate(inital_ages, 80)
+
 
 
 if __name__ == "__main__":
