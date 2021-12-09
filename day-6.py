@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import Counter, List
 
 
 @dataclass
@@ -20,9 +20,9 @@ def get_input() -> int:
         contents = f.read()
     return [int(x) for x in contents.split(",")]
 
-def simulate(inital_ages: List[int], num_days: int) -> int
+
+def simulate(inital_ages: List[int], num_days: int) -> int:
     fishes = []
-    num_days = 80
 
     for age in inital_ages:
         fishes.append(LanternFish(time_left=age, first_cycle=False))
@@ -36,11 +36,24 @@ def simulate(inital_ages: List[int], num_days: int) -> int
         fishes.extend(new_fishes)
     return len(fishes)
 
+
 def part_one(inital_ages: List[int]) -> int:
     return simulate(inital_ages, 80)
+
+
+def part_two(inital_ages: List[int]) -> int:
+    # This won't work so have to be a bit more clever!
+    # return simulate(inital_ages, 256)
+    
+    counts = [inital_ages.count(i) for i in range(0, 9)]
+    for day in range(0, 256):
+        counts[(day + 7) % 9] += counts[day % 9]
+    
+    return sum(counts)
 
 
 
 if __name__ == "__main__":
     input = get_input()
     print(part_one(input))
+    print(part_two(input))
