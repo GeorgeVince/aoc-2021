@@ -32,11 +32,10 @@ def part_one(input: List[str]) -> int:
     return points
 
 def part_two(input: List[str]) -> int:
-    stack = []
     left_pair = [x[0] for x in pair_score.keys()]
-    right_pair = [x[1] for x in pair_score.keys()]
-    points = 0
+    scores = []
     for row in input:
+        stack = []
         for char in row:
             if char in left_pair:
                 stack.append(char)
@@ -47,11 +46,20 @@ def part_two(input: List[str]) -> int:
                     popped = None
                 combined = popped + char
                 if combined not in pair_score:
+                    stack = []
                     break
-            
-    return points
+        if stack:
+            line_score = 0
+            stack = stack[::-1]
+            for to_fill in stack:
+                line_score *= 5
+                line_score += left_pair.index(to_fill) + 1
+            scores.append(line_score)
+    
+    return sorted(scores)[len(scores)//2]
 
 
 if __name__ == "__main__":
     input = get_input()
     print(part_one(input))
+    print(part_two(input))
