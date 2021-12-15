@@ -30,7 +30,6 @@ def _fold(coord, fold):
 def part_one(coords, folds):
     for coord in coords:
         coord = _fold(coord, folds[0])
-    print(coords)
     return len(set([(*x,) for x in coords]))
 
 
@@ -44,9 +43,9 @@ def draw(coords):
 
     for coord in coords:
         drawn[coord[1]][coord[0]] = "#"
-        for row in drawn:
-            print("".join(row))
-        print("")
+    
+    for row in drawn:
+        print("".join(row))
 
 def part_two(coords, folds):
     for fold in folds:
@@ -57,6 +56,5 @@ def part_two(coords, folds):
 
 if __name__ == "__main__":
     input = get_input()
-    # print(input)
-    # print(part_one(*input))
-    print(part_two(*input))
+    print(part_one(*input))
+    part_two(*input)
