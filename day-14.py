@@ -1,4 +1,5 @@
-from collections import Counter
+from collections import Counter, defaultdict
+
 
 def get_input():
     with open('./input/day-14.txt', 'r') as f:
@@ -26,9 +27,34 @@ def part_one(template, rules):
     return c.most_common()[0][1] - c.most_common()[-1][1]
 
 
+def part_two(template, rules):
+    chunks = [template[i:i+2]
+              for i in range(0, len(template) - 1)]
+    num_steps = 40
+
+    c = Counter(chunks)
+    for turn in range(0, num_steps):
+
+        for k, v in c.copy().items():
+            if v >= 1:
+                c[k] = c[k] - v
+                new_key_left = k[0] + rules[k]
+                new_key_right = rules[k] + k[1]
+                c[new_key_left] += v
+                if turn != num_steps - 1:
+                    c[new_key_right] += v
+
+    total_count = defaultdict(int)
+    for k, v in c.items():
+        total_count[k[0]] += v
+        total_count[k[1]] += v
+
+    total_count[template[-1]] += 1
+
+    return max(v for v in total_count.values()) - min(v for v in total_count.values())
 
 
 if __name__ == "__main__":
     input = get_input()
     print(part_one(*input))
-    #print(part_two(*input))
+    print(part_two(*input))
