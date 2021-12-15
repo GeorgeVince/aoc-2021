@@ -25,10 +25,33 @@ def part_one(input):
     
     return len(paths)
             
+def part_two(input):
+    caves = defaultdict(set)
+    for row in input:
+        caves[row[0]].add(row[1])
+        caves[row[1]].add(row[0])
+    
+    start = [(('start',), False)]
+    paths = set()
+    while start:
+        path, visited = start.pop()
+        if path[-1] == 'end':
+                paths.add(path)
+                continue
+        for node in caves[path[-1]]:
+            if node == "start":
+                continue
+            elif node.isupper() or node not in path:
+                start.append(((*path, node), visited))
+            elif not visited and path.count(node) == 1:
+                start.append(((*path, node), True))
+    return len(paths)
+            
 
 
 
 if __name__ == "__main__":
     input = get_input()
     print(part_one(input))
+    print(part_two(input))
     
