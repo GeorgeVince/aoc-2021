@@ -16,9 +16,6 @@ class Coordinate:
     y: int
 
 
-def part_one(input):
-    pass
-
 
 def valid_path(start_coordinate, target):
     coords = [Coordinate(0, 0)]
@@ -88,7 +85,6 @@ def optimise(target):
 
 def part_one(input):
     target = parse_target(input)
-    print(target)
     return(optimise(target))
 
 def parse_target(input) -> TargetArea:
@@ -107,8 +103,4 @@ def get_input():
 
 if __name__ == "__main__":
     input = get_input()
-    target = TargetArea(20, 30, -10, -5)
-
-    # target = TargetArea(88, 125, -157, -103)
-    #print(optimise(target))
     print(part_one(input))
