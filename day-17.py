@@ -1,6 +1,5 @@
 from dataclasses import dataclass
-from math import inf
-from typing import List, Set
+from typing import List
 
 
 @dataclass
