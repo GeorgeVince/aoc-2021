@@ -87,6 +87,18 @@ def part_one(input):
     target = parse_target(input)
     return(optimise(target))
 
+def part_two(input):
+    # Can just brute force this too
+    target = parse_target(input)
+    valid = []
+    for x in range(0, target.x2 * 2):
+        for y in range(target.y1*2, abs(target.y2)*2):
+            coord = Coordinate(x, y)
+            if valid_path(coord, target):
+                valid.append(coord)
+    return len(valid)
+
+
 def parse_target(input) -> TargetArea:
     x, y = input.split(",")
     x1 = x.split("..")[0].split("=")[1]
@@ -103,4 +115,6 @@ def get_input():
 
 if __name__ == "__main__":
     input = get_input()
-    print(part_one(input))
+    #print(part_one(input))
+
+    print(part_two(input))
